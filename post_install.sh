@@ -1,13 +1,5 @@
 pkg update -f
 pkg upgrade -f
-pkg install -y git
-pkg install -y ffmpeg
-pkg install -y x264
-pkg install -y x265 
-pkg install -y node
-pkg install -y npm
-pkg install -y mysql57-server
-pkg install -y mysql57-client
 cd /home
 git clone https://gitlab.com/Shinobi-Systems/Shinobi.git shinobi
 cd shinobi
