@@ -7,11 +7,16 @@ sysrc mysql_enable=YES && service mysql-server start
 git clone https://gitlab.com/Shinobi-Systems/Shinobi.git /usr/local/shinobi && cd /usr/local/shinobi && cp conf.sample.json conf.json && cp super.sample.json super.json
 
 if [ -e "/root/.mysql_secret" ] ; then
+  # Change mysql root password
+  mysql -h localhost -u root -e -p`tail -n +2 /root/.mysql_secret` --connect-expired-password <<EOF
+  alter user 'root'@'localhost' identified by '`tail -n +2 /root/.mysql_secret`;
+  EOF
+  
   # Create Shinobi user in mysql
-  set mysql_root_pass=`tail -n +2 /root/.mysql_secret` && mysql -h localhost -u root -e -p"$mysql_root_pass" "source sql/user.sql"
+  mysql -h localhost -u root -e -p`tail -n +2 /root/.mysql_secret` -e "source sql/user.sql"
 
   # Install Shinobi framework in mysql
-  set mysql_root_pass=`tail -n +2 /root/.mysql_secret` && mysql -h localhost -u root -e -p"$mysql_root_pass" "source sql/framework.sql"
+  mysql -h localhost -u root -e -p`tail -n +2 /root/.mysql_secret` -e "source sql/framework.sql"
 fi
 
 # Install npm components and start shinobi
