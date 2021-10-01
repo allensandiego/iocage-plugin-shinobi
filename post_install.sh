@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pwd
+echo "Hello World"
 
 #cd /home
 #git clone https://gitlab.com/Shinobi-Systems/Shinobi.git shinobi
