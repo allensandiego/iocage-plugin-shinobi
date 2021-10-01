@@ -17,3 +17,5 @@ pm2 start cron.js
 pm2 save
 pm2 list
 pm2 startup rcd
+
+
