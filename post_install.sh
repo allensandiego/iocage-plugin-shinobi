@@ -1,5 +1,5 @@
-pkg update -f
-pkg upgrade -f
+#!/bin/sh
+
 cd /home
 git clone https://gitlab.com/Shinobi-Systems/Shinobi.git shinobi
 cd shinobi
