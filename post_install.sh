@@ -1,38 +1,19 @@
 #!/bin/sh
 
-# Download Shinobi repository
-git clone https://gitlab.com/Shinobi-Systems/Shinobi.git /usr/local/shinobi
+# Enable and start mysql service
+sysrc mysql_enable=YES && service mysql-server start
 
-# Change directory to Shinobi
-cd /usr/local/shinobi
-
-# Enable mysql service
-sysrc mysql_enable=YES
-
-# Start mysql service
-service mysql-server start
+# Download Shinobi repository and copy default config files
+git clone https://gitlab.com/Shinobi-Systems/Shinobi.git /usr/local/shinobi && cd /usr/local/shinobi && cp conf.sample.json conf.json && cp super.sample.json super.json
 
 if [ -e "/root/.mysql_secret" ] ; then
-  # Get mysql root default password
-  set mysql_root_pass=`tail -n +2 /root/.mysql_secret`
-
   # Create Shinobi user in mysql
-  mysql -h localhost -u root -e -p"$mysql_root_pass" "source sql/user.sql"
+  set mysql_root_pass=`tail -n +2 /root/.mysql_secret` && mysql -h localhost -u root -e -p"$mysql_root_pass" "source sql/user.sql"
 
   # Install Shinobi framework in mysql
-  mysql -h localhost -u root -e -p"$mysql_root_pass" "source sql/framework.sql"
+  set mysql_root_pass=`tail -n +2 /root/.mysql_secret` && mysql -h localhost -u root -e -p"$mysql_root_pass" "source sql/framework.sql"
 fi
 
-# Install npm components
-npm install -g -save npm pm2@latest --unsafe-perm
-
-# Copy default config files
-cp conf.sample.json conf.json
-cp super.sample.json super.json
-
-# Start camera and cron applications
-pm2 start camera.js cron.js
-pm2 save
-pm2 list
-pm2 startup rcd
+# Install npm components and start shinobi
+npm install -g -save npm pm2@3.0.0 --unsafe-perm >> /tmp/npm-install.log && pm2 start camera.js cron.js && pm2 save && pm2 list && pm2 startup rcd
 
