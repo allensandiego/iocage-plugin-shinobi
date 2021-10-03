@@ -34,5 +34,17 @@ pm2 save
 pm2 list 
 pm2 startup rcd
 
-echo
-echo 
+echo "=====================================" >> /root/PLUGIN_INFO
+echo "||=====   Install Completed   =====||" >> /root/PLUGIN_INFO
+echo "=====================================" >> /root/PLUGIN_INFO
+echo "||  Login with the Superuser and   ||" >> /root/PLUGIN_INFO
+echo "||       create a new user at      ||" >> /root/PLUGIN_INFO
+echo "||  http://THIS_JAIL_IP:8080/super ||" >> /root/PLUGIN_INFO
+echo "||===================================" >> /root/PLUGIN_INFO
+echo "|| Superuser : admin@shinobi.video ||" >> /root/PLUGIN_INFO
+echo "||     Default Password : admin    ||" >> /root/PLUGIN_INFO
+echo "=====================================" >> /root/PLUGIN_INFO
+echo "|| Also, check out the unofficial  ||" >> /root/PLUGIN_INFO
+echo "|| android app for Shinobi at      ||" >> /root/PLUGIN_INFO
+echo "|| https://peek.allensandiego.com/ ||" >> /root/PLUGIN_INFO
+echo "=====================================" >> /root/PLUGIN_INFO
