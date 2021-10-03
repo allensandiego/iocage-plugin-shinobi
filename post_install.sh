@@ -24,6 +24,8 @@ EOF
 npm install -g npm
 npm install -g --unsafe-perm
 npm install -g pm2@3.0.0
+npm audit fix --force
+npm install -g socket.io
 
 # Start shinobi
 pm2 start camera.js 
