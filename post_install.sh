@@ -23,7 +23,7 @@ EOF
 # Install npm components
 npm install -g npm
 npm install -g --unsafe-perm
-npm install -g pm2@3.0.0
+npm install -g pm2@latest
 npm audit fix --force
 npm install -g socket.io
 
