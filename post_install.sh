@@ -1,14 +1,11 @@
 #!/bin/sh
 
-# Download Shinobi repository and copy default config files
-git clone https://gitlab.com/Shinobi-Systems/Shinobi.git -b master /usr/local/shinobi
-
-# Change directory to shinobi
-cd /usr/local/shinobi
-
-# Create default config files
-cp conf.sample.json conf.json
-cp super.sample.json super.json
+# Install pkgs
+pkg install -y ffmpeg x264 x265
+pkg install -y node
+png install -y npm
+pkg install -y mariadb105-server-10.5.17_1
+pkg install -y git
 
 # Enable mysql service
 sysrc mysql_enable=YES 
@@ -20,9 +17,20 @@ service mysql-server start
 mysql -e "source sql/user.sql" || true
 mysql -e "source sql/framework.sql" || true
 
+# Download Shinobi repository and copy default config files
+git clone https://gitlab.com/Shinobi-Systems/Shinobi.git -b master /usr/local/shinobi
+
+# Change directory to shinobi
+cd /usr/local/shinobi
+
 # Install npm components
 npm install -g npm
+npm install --unsafe-perm
 npm install -g pm2@latest
+
+# Create default config files
+cp conf.sample.json conf.json
+cp super.sample.json super.json
 
 # Start shinobi
 pm2 start camera.js 
