@@ -1,12 +1,5 @@
 #!/bin/sh
 
-# Install pkgs
-pkg install -y ffmpeg x264 x265
-pkg install -y node
-png install -y npm
-pkg install -y mariadb105-server-10.5.17_1
-pkg install -y git
-
 # Enable mysql service
 sysrc mysql_enable=YES 
 
